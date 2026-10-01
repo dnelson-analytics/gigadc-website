@@ -103,7 +103,7 @@ backend, analytics, or cookies.
 
 - Hosting, domain, and deployment.
 - A real form backend, analytics, or a login.
-- Additional pages (About, Pricing, per-capability pages).
+- Per-capability pages and any pages beyond Home, About, and Pricing.
 - Automating the demo-data rebuild or reconciling it against the semantic
   model.
 
@@ -113,3 +113,6 @@ backend, analytics, or cookies.
   (chosen by the project owner).
 - **2026-10-01:** Add the dashboard demo from the CSVs, via a build script
   and a committed JS data file.
+- **2026-10-01:** Add About and Pricing pages. Header and footer are copied
+  into each page (no includes without a build step). Pricing tiers (Pilot,
+  Portfolio, Enterprise) and prices are invented and labeled illustrative.

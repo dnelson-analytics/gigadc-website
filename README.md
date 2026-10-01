@@ -22,6 +22,7 @@ python -m http.server 8000
 | Path | Contents |
 |---|---|
 | `index.html` | The home page |
+| `about.html`, `pricing.html` | About and Pricing pages (header and footer are repeated per page) |
 | `css/styles.css` | All styling; brand colors are CSS variables in `:root` |
 | `js/main.js` | Mobile menu and front-end demo form validation |
 | `js/dashboard.js` | Supply vs demand demo: region picker, KPIs, chart, gap table |
