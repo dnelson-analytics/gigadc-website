@@ -50,3 +50,10 @@ Supply is cumulative Building Ready MW by actual date, times the net supply
 factor (0.95) from `reference/model_parameters.csv`. Demand is Region x month
 as generated. It is a demo approximation of the Power BI model, not a copy.
 
+
+## Deploying
+
+`.github/workflows/pages.yml` publishes `index.html`, `about.html`,
+`pricing.html`, `assets/`, `css/` and `js/` to GitHub Pages on every push to
+`main`. One-time setup: in the repo's Settings > Pages, set Source to
+"GitHub Actions". `scripts/`, `docs/` and the README are not published.
