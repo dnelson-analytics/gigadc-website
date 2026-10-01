@@ -11,7 +11,6 @@ import csv
 import json
 import sys
 from datetime import date, timedelta
-from decimal import Decimal, ROUND_HALF_EVEN
 from pathlib import Path
 
 AS_OF = "2026-09-30"  # default As Of Date parameter in the reports
@@ -58,8 +57,10 @@ def delivery_date(row):
 
 
 def round1(x):
-    """Number.Round(x, 1). Decimal avoids binary float ties."""
-    return float(Decimal(repr(x)).quantize(Decimal("0.1"), rounding=ROUND_HALF_EVEN))
+    """Number.Round(x, 1) as Power Query computes it: the double x * 10 is
+    rounded half-to-even, then divided by 10. Checked against the live model
+    (see ADR 0001); Decimal-based rounding gave different ties."""
+    return round(x * 10) / 10
 
 
 added = {r: {} for r in regions}

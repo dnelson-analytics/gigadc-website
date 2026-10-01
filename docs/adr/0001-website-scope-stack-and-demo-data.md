@@ -79,12 +79,18 @@ backend, analytics, or cookies.
 
 ## Consequences
 
-- **Demo numbers re-implement the Power BI model; they are not the model.**
-  The logic follows the TMDL, but it has not been checked against values
-  from the running report. Open question: Power Query's `Number.Round` tie
-  handling. About 15% of monthly Net Supply values (314 of 2,088) sit on a
-  rounding tie and differ by 0.1 MW depending on the mode. The script uses
-  half-to-even; confirm against the report.
+- **Demo numbers re-implement the Power BI model, and were reconciled on
+  2026-10-01** against the running Supply and Demand model (DAX over the
+  Supply and Demand tables, and the Net Supply, Demand and Gap measures).
+  Supply MW matched to the decimal for all regions; after fixing the rounding
+  rule (below), Net Supply and Demand matched for every region and year
+  checked (full region totals, 13 spot region-years, month-weighted sums) and
+  all seven as-of figures matched (All regions 498.6 / 475.0 / +23.6 MW).
+  Not every one of the 2,088 monthly cells was compared one by one.
+- **Power Query's `Number.Round(x, 1)` behaves as `round(x * 10) / 10` on the
+  double**, rounding ties half-to-even. Decimal-based rounding (half-even or
+  half-up) put about 15% of Net Supply cells off by 0.1 MW; this rule
+  reproduces the model.
 - **The data can go stale.** If the generator or Delivery logic changes,
   `demo-data.js` must be rebuilt by hand. Nothing detects drift.
 - **The as-of date is hard-coded** in the build script, separately from the
@@ -127,3 +133,5 @@ backend, analytics, or cookies.
 - **2026-10-01:** Port the model's Delivery Date rule and two-step rounding
   into the build script (it had used actual dates for all months). Hero chart
   now plots real year-end totals, smoothed.
+- **2026-10-01:** Reconciled against the live model; replaced Decimal rounding
+  with `round(x * 10) / 10` after testing four rules against model totals.
