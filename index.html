@@ -39,21 +39,9 @@
             <a href="#platform" class="btn btn-ghost">See the platform</a>
           </div>
         </div>
-        <figure class="hero-visual" aria-label="Supply versus demand, illustrative">
-          <svg viewBox="0 0 480 300" role="img" aria-labelledby="chart-title">
-            <title id="chart-title">Illustrative chart: net supply steps up and meets rising demand</title>
-            <g stroke="#5B7AA8" stroke-opacity=".25">
-              <line x1="40" y1="60" x2="460" y2="60"/><line x1="40" y1="120" x2="460" y2="120"/>
-              <line x1="40" y1="180" x2="460" y2="180"/><line x1="40" y1="240" x2="460" y2="240"/>
-            </g>
-            <path class="supply" d="M40 230 H110 V200 H180 V170 H250 V140 H320 V105 H390 V75 H460" fill="none" stroke="#25A06F" stroke-width="3"/>
-            <path class="demand" d="M40 225 C120 215 180 190 250 160 S380 100 460 70" fill="none" stroke="#FF7A1A" stroke-width="3" stroke-linecap="round"/>
-            <text x="44" y="272" fill="#B9C4D6" font-size="14">2026</text>
-            <text x="410" y="272" fill="#B9C4D6" font-size="14">2040</text>
-            <circle cx="40" cy="20" r="5" fill="#25A06F"/><text x="52" y="24" fill="#F2F6FC" font-size="14">Net supply (MW)</text>
-            <circle cx="170" cy="20" r="5" fill="#FF7A1A"/><text x="182" y="24" fill="#F2F6FC" font-size="14">Demand (MW)</text>
-          </svg>
-          <figcaption>Illustrative. Supply arrives in building-sized steps; demand is a curve.</figcaption>
+        <figure class="hero-visual">
+          <svg id="hero-chart" role="img" aria-label="Net supply and demand in MW across all regions, 2012 to 2040, smoothed"></svg>
+          <figcaption id="hero-caption">All regions, year-end, 2012 to 2040. Smoothed from the reference portfolio.</figcaption>
         </figure>
       </div>
     </section>
@@ -196,6 +184,7 @@
   </footer>
 
   <script src="js/demo-data.js"></script>
+  <script src="js/hero.js"></script>
   <script src="js/dashboard.js"></script>
   <script src="js/main.js"></script>
 </body>

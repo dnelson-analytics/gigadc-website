@@ -60,12 +60,17 @@ Region × month series of net supply and demand. The file is committed, so the
 site needs neither the CSVs nor a server. The chart is hand-written SVG; no
 charting library.
 
-- Net supply is cumulative Building Ready MW by **actual** date, times the
-  net supply factor read from `reference/model_parameters.csv` (0.95),
-  accumulated to month end.
+- The build script ports the model's Delivery and Supply queries
+  (`Delivery.tmdl`, `Supply.tmdl`): a building counts from its actual date if
+  delivered by the As Of Date, else its planned date, or the day after the
+  As Of Date if that has passed. Supply MW is the cumulative total rounded to
+  0.1, and Net Supply MW is that times the factor (0.95 from
+  `reference/model_parameters.csv`), rounded again to 0.1.
 - Demand is the generated Region × month MW.
 - The as-of date (2026-09-30) is fixed in the script to match the reports'
   default, and months after it are shown as planned.
+- The hero chart on the home page plots the all-regions year-end totals from
+  the same file, smoothed with a monotone cubic curve (no overshoot).
 
 ### 7. The demo form is front-end only
 
@@ -74,9 +79,12 @@ backend, analytics, or cookies.
 
 ## Consequences
 
-- **Demo numbers are an approximation of the Power BI model, not the model.**
-  The logic is re-implemented in Python and has not been reconciled against
-  the report. Verify before presenting the figures as the same.
+- **Demo numbers re-implement the Power BI model; they are not the model.**
+  The logic follows the TMDL, but it has not been checked against values
+  from the running report. Open question: Power Query's `Number.Round` tie
+  handling. About 15% of monthly Net Supply values (314 of 2,088) sit on a
+  rounding tie and differ by 0.1 MW depending on the mode. The script uses
+  half-to-even; confirm against the report.
 - **The data can go stale.** If the generator or Delivery logic changes,
   `demo-data.js` must be rebuilt by hand. Nothing detects drift.
 - **The as-of date is hard-coded** in the build script, separately from the
@@ -116,3 +124,6 @@ backend, analytics, or cookies.
 - **2026-10-01:** Add About and Pricing pages. Header and footer are copied
   into each page (no includes without a build step). Pricing tiers (Pilot,
   Portfolio, Enterprise) and prices are invented and labeled illustrative.
+- **2026-10-01:** Port the model's Delivery Date rule and two-step rounding
+  into the build script (it had used actual dates for all months). Hero chart
+  now plots real year-end totals, smoothed.

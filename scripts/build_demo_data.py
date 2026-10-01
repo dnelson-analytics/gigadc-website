@@ -10,7 +10,8 @@ JS file so the demo works from file:// with no server. Run
 import csv
 import json
 import sys
-from datetime import date
+from datetime import date, timedelta
+from decimal import Decimal, ROUND_HALF_EVEN
 from pathlib import Path
 
 AS_OF = "2026-09-30"  # default As Of Date parameter in the reports
@@ -36,21 +37,45 @@ for r in rows("generator/out/demand.csv"):
     demand[(r["region"], r["month_start"][:7])] = float(r["demand_mw"])
 months = sorted({m for _, m in demand})
 
-# A building's MW is on its Building Ready row; it counts as supply from
-# that row's actual date (planned dates are the baseline, not the outcome).
-delivered = {r: {} for r in regions}
+# Port of the Supply and Delivery queries in the Supply and Demand semantic
+# model (Delivery.tmdl, Supply.tmdl). Keep the two in step.
+def month_of(iso):
+    return iso[:7]
+
+
+def add_day(iso):
+    y, m, d = map(int, iso.split("-"))
+    return (date(y, m, d) + timedelta(days=1)).isoformat()
+
+
+def delivery_date(row):
+    """When a building's MW counts toward supply (Delivery[Delivery Date])."""
+    if row["actual_date"] <= AS_OF:                      # Delivered
+        return row["actual_date"]
+    if row["planned_date"] > AS_OF:                      # Planned, on schedule
+        return row["planned_date"]
+    return add_day(AS_OF)                                # Late: day after As Of
+
+
+def round1(x):
+    """Number.Round(x, 1). Decimal avoids binary float ties."""
+    return float(Decimal(repr(x)).quantize(Decimal("0.1"), rounding=ROUND_HALF_EVEN))
+
+
+added = {r: {} for r in regions}
 for d in rows("generator/out/deliveries.csv"):
-    if d["milestone"] == "Building Ready" and d["mw"]:
-        m = d["actual_date"][:7]
-        reg = region_of[d["data_center_code"]]
-        delivered[reg][m] = delivered[reg].get(m, 0.0) + float(d["mw"])
+    if d["milestone"] != "Building Ready":
+        continue
+    m = month_of(delivery_date(d))
+    reg = region_of[d["data_center_code"]]
+    added[reg][m] = added[reg].get(m, 0.0) + float(d["mw"])
 
 series = {}
 for reg in regions:
     cum, sup, dem = 0.0, [], []
     for m in months:
-        cum += delivered[reg].get(m, 0.0)
-        sup.append(round(cum * factor, 1))
+        cum += added[reg].get(m, 0.0)
+        sup.append(round1(round1(cum) * factor))         # Supply MW, then Net Supply MW
         dem.append(round(demand[(reg, m)], 1))
     series[reg] = {"area": area_of[reg], "supply": sup, "demand": dem}
 

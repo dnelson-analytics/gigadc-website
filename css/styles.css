@@ -54,8 +54,9 @@ p { margin: 0 0 1em; color: var(--muted); }
 .cta-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px; }
 .hero-visual { margin: 0; background: var(--navy-800); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px; }
 .hero-visual svg { width: 100%; height: auto; display: block; }
+#hero-chart text { fill: var(--muted); font-size: 12px; }
 .hero-visual figcaption { font-size: .85rem; color: var(--muted); margin-top: 8px; }
-.supply, .demand { stroke-dasharray: 1200; stroke-dashoffset: 1200; animation: draw 2.2s ease-out .3s forwards; }
+.supply, .demand { stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 2.2s ease-out .3s forwards; }
 @keyframes draw { to { stroke-dashoffset: 0; } }
 
 /* Sections */
