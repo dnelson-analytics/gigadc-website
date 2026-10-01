@@ -5,7 +5,8 @@
   if (!D) return;
 
   const ALL = 'All regions';
-  const W = 960, H = 340, M = { l: 52, r: 16, t: 16, b: 28 };
+  const M = { l: 52, r: 16, t: 16, b: 28 };
+  let W = 960, H = 340;
   const NS = 'http://www.w3.org/2000/svg';
   const $ = (id) => document.getElementById(id);
   const fmt = (n) => n.toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
@@ -26,7 +27,6 @@
 
   const svg = $('dash-chart');
   const tip = $('dash-tip');
-  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
 
   function el(name, attrs, parent) {
     const e = document.createElementNS(NS, name);
@@ -38,6 +38,10 @@
   let current = null;
 
   function draw(name) {
+    // Draw at the container's real pixel width so text stays readable on phones.
+    W = Math.max(320, Math.round(svg.parentElement.clientWidth) || 960);
+    H = W < 600 ? 280 : 340;
+    svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
     const s = seriesFor(name);
     current = s;
     svg.replaceChildren();
@@ -78,10 +82,10 @@
     el('path', { d: path(s.demand), fill: 'none', stroke: '#FF7A1A', 'stroke-width': 2.5, 'stroke-linejoin': 'round' });
 
     // Legend
-    el('rect', { x: W - 270, y: 6, width: 10, height: 10, fill: '#25A06F', rx: 2 });
-    el('text', { x: W - 255, y: 15 }).textContent = 'Net supply';
-    el('rect', { x: W - 160, y: 6, width: 10, height: 10, fill: '#FF7A1A', rx: 2 });
-    el('text', { x: W - 145, y: 15 }).textContent = 'Demand';
+    el('rect', { x: W - 250, y: 6, width: 10, height: 10, fill: '#25A06F', rx: 2 });
+    el('text', { x: W - 235, y: 15 }).textContent = 'Net supply';
+    el('rect', { x: W - 140, y: 6, width: 10, height: 10, fill: '#FF7A1A', rx: 2 });
+    el('text', { x: W - 125, y: 15 }).textContent = 'Demand';
 
     // Hover marker
     el('line', { id: 'hv', y1: M.t, y2: H - M.b, stroke: '#F2F6FC', 'stroke-opacity': .6, visibility: 'hidden' });
@@ -153,4 +157,9 @@
   select.addEventListener('change', () => draw(select.value));
 
   draw(ALL);
+  let lastW = svg.parentElement.clientWidth;
+  window.addEventListener('resize', () => {
+    const w = svg.parentElement.clientWidth;
+    if (w && w !== lastW) { lastW = w; draw(select.value); }
+  });
 })();
