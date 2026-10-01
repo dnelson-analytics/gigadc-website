@@ -19,6 +19,7 @@
       <nav id="nav" aria-label="Primary">
         <a href="#problem">The problem</a>
         <a href="#platform">Platform</a>
+        <a href="#dashboard">Demo</a>
         <a href="#how">How it works</a>
         <a href="#numbers">Scale</a>
         <a href="#demo" class="btn btn-small">Request a demo</a>
@@ -113,7 +114,39 @@
       </div>
     </section>
 
-    <section id="how" class="section">
+    <section id="dashboard" class="section">
+      <div class="wrap">
+        <p class="eyebrow">Live-style demo</p>
+        <h2>Supply versus demand, built from the reference portfolio.</h2>
+        <p class="lead">Net supply is cumulative Building Ready capacity less the 5% reserved for network gear. Pick a region and hover the chart to read any month.</p>
+        <div class="dash" id="dash">
+          <div class="dash-controls">
+            <label>Region
+              <select id="dash-region"></select>
+            </label>
+            <p class="dash-asof">As of <b id="dash-asof"></b>. Months after this date are planned.</p>
+          </div>
+          <div class="kpis" aria-live="polite">
+            <div class="kpi"><span>Net supply</span><b id="kpi-supply"></b></div>
+            <div class="kpi"><span>Demand</span><b id="kpi-demand"></b></div>
+            <div class="kpi"><span>Gap</span><b id="kpi-gap"></b><em id="kpi-gap-label"></em></div>
+          </div>
+          <div class="chart-box">
+            <svg id="dash-chart" role="img" aria-label="Net supply and demand in MW by month, 2012 to 2040"></svg>
+            <div id="dash-tip" class="tip" hidden></div>
+          </div>
+          <div class="table-scroll">
+            <table class="dash-table">
+              <caption>Gap by region at the as-of date (MW)</caption>
+              <thead><tr><th>Region</th><th>Net supply</th><th>Demand</th><th>Gap</th></tr></thead>
+              <tbody id="dash-rows"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="how" class="section alt">
       <div class="wrap">
         <p class="eyebrow">How it works</p>
         <h2>From data to decision in three steps.</h2>
@@ -125,7 +158,7 @@
       </div>
     </section>
 
-    <section id="numbers" class="section alt">
+    <section id="numbers" class="section">
       <div class="wrap">
         <p class="eyebrow">Built for scale</p>
         <h2>Designed for a portfolio like this.</h2>
@@ -161,6 +194,8 @@
     </div>
   </footer>
 
+  <script src="js/demo-data.js"></script>
+  <script src="js/dashboard.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>
