@@ -87,3 +87,18 @@ region and per building) is accepted: it is generated, fictitious data.
   - Clone first, extras second.
   - Python pre-computes; the browser filters, rolls up, and draws.
   - Public data accepted; no libraries.
+- **2026-10-16 (Capacity Delivery):**
+  - `reports/capacity-delivery.html` clones the report's two pages as tabs,
+    **Overview** and **Schedule Matrix**, kept in the address
+    (`#overview`, `#schedule`). The Area slicer in the header serves both.
+  - `scripts/build_delivery_data.py` ports the Delivery query (milestones
+    from `milestones.csv`, Drift, Status) and Delivery MW, and writes
+    `js/reports/capacity-delivery-data.js`. The browser computes the
+    measures: MW In Flight, Next Building Ready, Status Rollup (weighted
+    open rows, bands, Red override), and Data Center Complete.
+  - Overview: the region treemap (squarified, region colors) and the data
+    center columns (grouped by region, totals) cross-filter DC Details and
+    Building Details when clicked, as in Power BI; click again to clear.
+  - Schedule Matrix: active buildings only, grey delivered cells, status-
+    colored plan dates, and the Milestone Tooltip on hover or focus.
+  - Row headers stay in place when the wide tables scroll sideways.
