@@ -102,3 +102,8 @@ region and per building) is accepted: it is generated, fictitious data.
   - Schedule Matrix: active buildings only, grey delivered cells, status-
     colored plan dates, and the Milestone Tooltip on hover or focus.
   - Row headers stay in place when the wide tables scroll sideways.
+  - **Building Details shows active buildings only** (Delivery Status To
+    Be Delivered), matching the Schedule Matrix. Delivered buildings, the
+    operating base among them, no longer show as blank rows, and a data
+    center drops out once all its buildings are delivered. This replaces
+    the Data Center Complete filter on this table.

@@ -47,9 +47,6 @@
     return open.some((r) => r[3] === 'Red') && band === 'Green' ? 'Amber' : band;
   }
   const rowsOf = (bs) => bs.flatMap((b) => b.milestones.filter(Boolean));
-  // Data Center Complete: no open milestone row left in the data center.
-  const dcComplete = new Map(D.dataCenters.map((d) => [d.code,
-    rowsOf(D.buildings.filter((b) => b.dataCenter === d.code)).every((r) => r[3] === 'Grey')]));
 
   const bubble = (status) => (status ? `<span class="bubble" style="color:${STATUS_COLOR[status]}" title="${status}">&#9679;</span>` : '');
 
@@ -252,7 +249,9 @@
   // Building Details: Area, Region, Data Center, Building, MW down the side (row headers not
   // repeated), each milestone's Plan, Actual / Forecast, Drift, and Status across.
   function renderBuildingDetails(bs) {
-    const list = bs.filter((b) => !dcComplete.get(b.dataCenter)).sort(byHierarchy);
+    // Active buildings only, as on the Schedule Matrix: a delivered building drops out,
+    // and so does a data center once all its buildings are delivered.
+    const list = bs.filter((b) => b.deliveryStatus === 'To Be Delivered').sort(byHierarchy);
     const head1 = `<tr>${['Area', 'Region', 'Data Center', 'Building', 'MW'].map((h) =>
       `<th class="rh" rowspan="2" scope="col">${h}</th>`).join('')}${D.milestones.map((m) =>
       `<th class="period-head group-start" colspan="4" scope="colgroup">${esc(m.name)}</th>`).join('')}</tr>`;
