@@ -48,7 +48,6 @@
 }
 .grain button:first-child, .toggle button:first-child { border-left: 0; }
 .grain button[aria-checked="true"], .toggle button[aria-checked="true"] { background: var(--pbi-blue); color: #fff; }
-.toggle { justify-self: center; }
 
 /* Dropdown slicers: Area, Region, Trend. */
 .slicer { position: relative; display: grid; gap: 4px; min-width: 170px; }
@@ -187,3 +186,6 @@ a.report-tile:hover { border-color: var(--blue); }
 .pbi-table thead .frozen { z-index: 4; }
 .pbi-table .frozen-last { border-right: 1px solid #C8C8C8; }
 .pbi-table tbody tr:hover td.frozen { background: #F3F2F1; }
+
+/* Supply and Demand: the chart card carries its own controls on a row under the chart. */
+.card-controls { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px; margin-top: 10px; padding-top: 10px; border-top: 1px solid #EDEBE9; }

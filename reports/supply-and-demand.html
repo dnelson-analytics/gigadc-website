@@ -39,8 +39,6 @@
           <img class="report-logo" src="../assets/logos/GigaDC_primary_on-dark.svg" alt="GigaDC" width="64" height="64">
           <h1 id="report-title">Supply and Demand Trending</h1>
 
-          <div class="grain" role="radiogroup" aria-label="Time grain" id="grain"></div>
-
           <div class="slicers">
             <div class="slicer" id="slicer-area"></div>
             <div class="slicer" id="slicer-region"></div>
@@ -69,9 +67,12 @@
             <p id="chart-desc" class="sr-only">Lines show the selected trends in MW over time on the right axis; where Gap drops below zero is a shortfall. Bars show MW delivered in each period on the left axis.</p>
             <div class="pbi-tip" id="tip" hidden></div>
           </div>
+          <!-- The chart's controls, inside its card: time grain lower left, bars lower right. -->
+          <div class="card-controls">
+            <div class="grain" role="radiogroup" aria-label="Time grain" id="grain"></div>
+            <div class="toggle" role="radiogroup" aria-label="Delivery bars" id="bars"></div>
+          </div>
         </article>
-
-        <div class="toggle" role="radiogroup" aria-label="Delivery bars" id="bars"></div>
 
         <article class="pbi-card" aria-labelledby="table-title">
           <h2 id="table-title" class="pbi-title">Supply and demand by region (MW)</h2>

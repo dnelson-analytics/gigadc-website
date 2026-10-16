@@ -107,3 +107,9 @@ region and per building) is accepted: it is generated, fictitious data.
     operating base among them, no longer show as blank rows, and a data
     center drops out once all its buildings are delivered. This replaces
     the Data Center Complete filter on this table.
+- **2026-10-16 (Supply and Demand layout):** the web page departs from the
+  Power BI layout on purpose. The chart's white card is taller and carries
+  the chart's controls on a row under the chart: Year / Quarter / Month on
+  the lower left, Show Bars / Hide Bars on the lower right. The Time Grain
+  buttons leave the header, and the toggle no longer sits between the
+  cards. The Power BI report is unchanged.
