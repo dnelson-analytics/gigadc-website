@@ -79,3 +79,9 @@ change.
 `pricing.html`, `assets/`, `css/`, `js/` and `reports/` to GitHub Pages on every push to
 `main`. One-time setup: in the repo's Settings > Pages, set Source to
 "GitHub Actions". `scripts/`, `docs/` and the README are not published.
+
+GitHub Pages lets browsers cache a file for 10 minutes, so a changed stylesheet
+or script can look stale after a deploy. The report pages avoid this with a
+version stamp on every local CSS and JS link (`?v=YYYYMMDD-N`, the date plus a
+counter for that day): after changing any file they load, bump the stamp on
+every link in all the `reports/*.html` pages.
