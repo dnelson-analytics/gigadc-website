@@ -189,3 +189,18 @@ a.report-tile:hover { border-color: var(--blue); }
 
 /* Supply and Demand: the chart card carries its own controls on a row under the chart. */
 .card-controls { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px; margin-top: 10px; padding-top: 10px; border-top: 1px solid #EDEBE9; }
+
+/* Capacity Delivery Overview, tightened to about the Supply and Demand page's height:
+   the upper visuals fill their cards; the detail tables are compact and scroll. */
+.cd-top { align-items: stretch; }
+.cd-top > .pbi-card:first-child { display: flex; flex-direction: column; }
+#treemap-wrap { flex: 1; position: relative; min-height: 260px; }
+#treemap { position: absolute; inset: 0; width: 100%; height: 100%; }
+.cd-table { font-size: .74rem; }
+.cd-table th, .cd-table td { padding: 3px 8px; line-height: 1.3; }
+.cd-table thead tr:first-child th { height: 22px; }
+.cd-table thead tr:nth-child(2) th { top: 23px; }
+.cd-table .bubble { font-size: .9rem; }
+.cd-dc-scroll { max-height: 150px; }
+.cd-bd-scroll { max-height: 230px; }
+.cd-subtitle { margin-top: 4px; }

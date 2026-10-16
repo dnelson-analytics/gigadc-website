@@ -30,6 +30,11 @@ and nothing from any employer's systems.
   (`index.html`, `about.html`, `pricing.html`, `assets/`, `css/`, `js/`, `reports/`) on every
   push to `main`. Add any new page or folder to its `cp` line. `scripts/`, `docs/`
   and the README are not published.
+- Cache busting: the report pages in `reports/` load every local stylesheet and
+  script with one version stamp, `?v=YYYYMMDD-N`: the date plus a counter for
+  that day. GitHub Pages lets browsers keep a file for 10 minutes, so after
+  changing any CSS or JS a report page uses, bump the stamp (today's date, next
+  N) on every link in all the `reports/*.html` pages.
 
 ## Demo data
 - `js/demo-data.js` is generated: never edit it by hand. Rebuild it with

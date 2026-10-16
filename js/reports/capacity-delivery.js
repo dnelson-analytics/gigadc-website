@@ -13,7 +13,9 @@
   };
   // Status Color: the theme's good, neutral, bad, and grey.
   const STATUS_COLOR = { Green: '#43C98A', Amber: '#F2B01E', Red: '#E5484D', Grey: '#8FA0B8' };
-  const DELIVERED_CELL = '#B9C4D6';              // Schedule Cell Background for a delivered milestone
+  const DELIVERED_CELL = '#B9C4D6';
+  // Building Details shows only the three core milestones; the Schedule Matrix shows all ten.
+  const CORE = ['Facility Ready', 'Infrastructure Ready', 'Building Ready'];              // Schedule Cell Background for a delivered milestone
   const NS = 'http://www.w3.org/2000/svg';
   const $ = (id) => document.getElementById(id);
 
@@ -158,9 +160,11 @@
   // --- Overview ------------------------------------------------------------------------------
   function renderTreemap(bs) {
     const svg = $('treemap');
+    // The treemap fills its card, which the grid stretches to the right-hand card's height.
     const W = Math.max(280, $('treemap-wrap').clientWidth);
-    const H = W < 520 ? 300 : 470;
+    const H = Math.max(260, $('treemap-wrap').clientHeight);
     svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+    svg.setAttribute('preserveAspectRatio', 'none');
     svg.innerHTML = '';
     const items = D.regions.map((r) => ({ region: r.name, value: mwInFlight(bs.filter((b) => b.region === r.name)) }))
       .filter((i) => i.value > 0).sort((a, b) => b.value - a.value);
@@ -184,7 +188,7 @@
   function renderColumns(bs) {
     const svg = $('columns');
     const W = Math.max(280, $('columns-wrap').clientWidth);
-    const H = 270;
+    const H = 310;
     svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
     svg.innerHTML = '';
     // One column per data center with MW in flight, grouped by region in region order.
@@ -252,10 +256,11 @@
     // Active buildings only, as on the Schedule Matrix: a delivered building drops out,
     // and so does a data center once all its buildings are delivered.
     const list = bs.filter((b) => b.deliveryStatus === 'To Be Delivered').sort(byHierarchy);
+    const core = D.milestones.map((m, i) => i).filter((i) => CORE.includes(D.milestones[i].name));
     const head1 = `<tr>${['Area', 'Region', 'Data Center', 'Building', 'MW'].map((h) =>
-      `<th class="rh" rowspan="2" scope="col">${h}</th>`).join('')}${D.milestones.map((m) =>
-      `<th class="period-head group-start" colspan="4" scope="colgroup">${esc(m.name)}</th>`).join('')}</tr>`;
-    const head2 = `<tr>${D.milestones.map(() => ['Plan', 'Actual / Forecast', 'Drift (days)', 'Status'].map((h, i) =>
+      `<th class="rh" rowspan="2" scope="col">${h}</th>`).join('')}${core.map((i) =>
+      `<th class="period-head group-start" colspan="4" scope="colgroup">${esc(D.milestones[i].name)}</th>`).join('')}</tr>`;
+    const head2 = `<tr>${core.map(() => ['Plan', 'Actual / Forecast', 'Drift (days)', 'Status'].map((h, i) =>
       `<th scope="col" class="${i === 0 ? 'group-start ' : ''}${i === 1 || i === 0 ? 'ctr' : i === 3 ? 'ctr' : ''}">${h}</th>`).join('')).join('')}</tr>`;
     let prev = [];
     const body = list.map((b) => {
@@ -266,7 +271,7 @@
         return `<td class="rh txt">${changed ? esc(v) : ''}</td>`;
       }).join('');
       prev = keys;
-      const ms = b.milestones.map((m) => (m
+      const ms = core.map((i) => b.milestones[i]).map((m) => (m
         ? `<td class="group-start ctr">${fmtDate(m[0])}</td><td class="ctr">${fmtDate(m[1])}</td><td>${fmtInt(m[2])}</td><td class="ctr">${bubble(m[3])}</td>`
         : '<td class="group-start"></td><td></td><td></td><td></td>')).join('');
       return `<tr>${heads}<td class="rh txt">${b.building}</td><td class="rh">${fmt1(b.mw)}</td>${ms}</tr>`;
@@ -365,11 +370,13 @@
     const areaBs = D.buildings.filter(inArea);
     if (currentPage() === 'schedule') { renderSchedule(areaBs); return; }
     // The treemap and columns show the area; their selection cross-filters the tables.
-    renderTreemap(areaBs);
-    renderColumns(areaBs);
     const sel = areaBs.filter(inSelection);
+    renderColumns(areaBs);
     renderDcTable(sel);
     renderBuildingDetails(sel);
+    renderTreemap(areaBs);
+    // Once the layout has settled, size the treemap to its card exactly.
+    requestAnimationFrame(() => renderTreemap(areaBs));
   }
 
   $('asof').textContent = fmtDate(D.asOf);

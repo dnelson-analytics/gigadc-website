@@ -113,3 +113,19 @@ region and per building) is accepted: it is generated, fictitious data.
   the lower left, Show Bars / Hide Bars on the lower right. The Time Grain
   buttons leave the header, and the toggle no longer sits between the
   cards. The Power BI report is unchanged.
+- **2026-10-16 (cache busting):** a browser kept the old `reports.css`
+  after a deploy (GitHub Pages sends `max-age=600`), so the Supply and
+  Demand controls looked wrong. The report pages now load every local
+  stylesheet and script with one version stamp, `?v=YYYYMMDD-N` (the date
+  plus a counter, since a date alone can't tell two same-day changes apart),
+  bumped by hand whenever a file they load changes. There is no build step
+  to do it automatically.
+- **2026-10-16 (Capacity Delivery Overview size):** tightened to about the
+  Supply and Demand page's height (about 1,040 px of report at a 1,400 px
+  window, down from 1,300). The treemap fills its card, which stretches to
+  the right-hand card; the data center columns are taller. DC Details and
+  Building Details use a smaller font and tighter rows, and scroll after
+  about 5 and 8 rows.
+- **2026-10-16:** Building Details shows only the three core milestones
+  (Facility Ready, Infrastructure Ready, Building Ready), matching the Power
+  BI report; the Schedule Matrix keeps all ten.
