@@ -126,3 +126,64 @@ a.report-tile:hover { border-color: var(--blue); }
 .tile-link { color: var(--blue); font-weight: 600; }
 .report-tile.is-soon .tile-link { color: var(--muted); font-weight: 400; }
 .report-tile .tag { align-self: flex-start; }
+
+/* Capacity Delivery: page tabs (the report's pages) */
+.page-tabs { display: flex; gap: 4px; border-bottom: 1px solid rgba(185,196,214,.35); }
+.page-tabs a { font: 400 .9rem var(--pbi-font); color: #B9C4D6; text-decoration: none; padding: 8px 16px; border-radius: 6px 6px 0 0; }
+.page-tabs a[aria-selected="true"] { color: #fff; background: rgba(79,141,240,.25); box-shadow: inset 0 -2px 0 var(--pbi-blue); }
+.page-tabs a:hover { color: #fff; }
+.report-tab { display: grid; gap: 14px; }
+.report-tab[hidden] { display: none; }
+
+/* Overview: treemap left half; columns and DC Details share one card on the right. */
+.cd-top { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.cd-right { display: grid; align-content: start; }
+.cd-subtitle { margin-top: 10px; }
+.cd-dc-scroll { max-height: 210px; }
+.cd-bd-scroll { max-height: 460px; }
+.cd-sm-scroll { max-height: 70vh; }
+#treemap, #columns { width: 100%; height: auto; display: block; font-family: var(--pbi-font); }
+#treemap .tm-name { fill: #fff; font-size: 14px; }
+#treemap .tm-value { fill: #fff; font-size: 18px; font-family: var(--pbi-semibold); }
+#treemap .tm-cell, #columns .col-bar { cursor: pointer; }
+#treemap .tm-cell:focus-visible rect, #columns .col-bar:focus-visible rect { stroke: #000; stroke-width: 2; }
+#columns text { fill: #252423; font-size: 11px; }
+#columns .axis-label { fill: #605E5C; }
+#columns .dc-label { font-size: 11px; }
+#columns .region-label { font-size: 12px; font-family: var(--pbi-semibold); fill: #252423; }
+#columns .total-label { font-size: 11px; font-family: var(--pbi-semibold); }
+#columns .grid { stroke: var(--pbi-grid); }
+#columns .group-line { stroke: #C8C8C8; }
+
+.cd-table td.txt, .cd-table th.txt, .sm-table td.txt, .sm-table th.txt { text-align: left; }
+.cd-table .ctr, .sm-table .ctr { text-align: center; }
+.cd-table thead tr:nth-child(2) th { top: 27px; border-bottom: 1px solid #404040; }
+.cd-table thead tr:only-child th { border-bottom: 1px solid #404040; }
+.cd-table th.rh, .sm-table th.rh { text-align: left; }
+.bubble { font-size: 1.05rem; line-height: 1; }
+
+/* Schedule Matrix: grows to fit, headers centered. */
+.sm-table { width: 100%; }
+.sm-table thead th { border-bottom: 1px solid #404040; text-align: center; }
+.sm-table thead th.rh { text-align: left; }
+.sm-table td { border-bottom: 1px solid #fff; }
+.sm-cell { cursor: default; }
+.sm-cell:focus-visible { outline: 2px solid var(--pbi-blue); outline-offset: -2px; }
+
+/* The Milestone Tooltip page. */
+.report-canvas { position: relative; }
+.ms-tip { position: absolute; z-index: 30; pointer-events: none; width: 300px; background: #fff; color: var(--pbi-text);
+  border: 1px solid #404040; box-shadow: 0 4px 14px rgba(0,0,0,.3); padding: 12px 10px; font-family: var(--pbi-font); }
+.ms-name { text-align: center; font-family: var(--pbi-semibold); font-weight: 600; font-size: 1.1rem; margin-bottom: 8px; }
+.ms-dates { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; text-align: center; }
+.ms-dates b { display: block; font-family: var(--pbi-semibold); font-size: 1.05rem; }
+.ms-dates span { font-size: .75rem; color: #605E5C; }
+
+@media (max-width: 960px) {
+  .cd-top { grid-template-columns: 1fr; }
+}
+.cd-table#dc-table { width: 100%; }
+.pbi-table .frozen { position: sticky; background: #fff; z-index: 2; }
+.pbi-table thead .frozen { z-index: 4; }
+.pbi-table .frozen-last { border-right: 1px solid #C8C8C8; }
+.pbi-table tbody tr:hover td.frozen { background: #F3F2F1; }
