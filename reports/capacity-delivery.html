@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Capacity Delivery | Reports | GigaDC Builders</title>
+  <meta name="description" content="The MW still in flight, where it is, and whether each building's ten delivery milestones can be trusted: the GigaDC Capacity Delivery report in plain HTML.">
+  <link rel="icon" href="../assets/logos/GigaDC_primary_on-dark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/reports.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap nav">
+      <a href="../index.html" class="brand" aria-label="GigaDC Builders home">
+        <img src="../assets/logos/GigaDC_builders_on-dark.svg" alt="GigaDC Builders" width="44" height="44">
+        <span>GigaDC <b>Builders</b></span>
+      </a>
+      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">Menu</button>
+      <nav id="nav" aria-label="Primary">
+        <a href="../index.html#platform">Platform</a>
+        <a href="../index.html#dashboard">Demo</a>
+        <a href="../index.html#how">How it works</a>
+        <a href="index.html" aria-current="page">Reports</a>
+        <a href="../pricing.html">Pricing</a>
+        <a href="../about.html">About</a>
+        <a href="../index.html#demo" class="btn btn-small">Request a demo</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="report-page">
+    <div class="wrap-wide">
+      <p class="crumbs"><a href="index.html">Reports</a> <span aria-hidden="true">/</span> Capacity Delivery</p>
+
+      <section class="report-canvas" aria-labelledby="report-title">
+        <div class="report-head">
+          <img class="report-logo" src="../assets/logos/GigaDC_primary_on-dark.svg" alt="GigaDC" width="64" height="64">
+          <h1 id="report-title">Capacity Delivery - Overview</h1>
+          <div class="slicers">
+            <div class="slicer" id="slicer-area"></div>
+          </div>
+        </div>
+
+        <svg class="spark" viewBox="0 0 1000 30" preserveAspectRatio="none" aria-hidden="true">
+          <defs>
+            <linearGradient id="spark-grad" x1="0" x2="1">
+              <stop offset="0" stop-color="#4F8DF0"/>
+              <stop offset=".45" stop-color="#FF7A1A"/>
+              <stop offset="1" stop-color="#FF7A1A"/>
+            </linearGradient>
+          </defs>
+          <polyline points="0,15 935,15 943,15 950,3 957,27 963,10 968,15 995,15"
+                    fill="none" stroke="url(#spark-grad)" stroke-width="2" vector-effect="non-scaling-stroke"/>
+          <circle cx="995" cy="15" r="3.5" fill="#FF7A1A"/>
+        </svg>
+
+        <!-- The report's pages, as tabs. -->
+        <div class="page-tabs" role="tablist" aria-label="Report pages">
+          <a role="tab" id="tab-overview" href="#overview" aria-controls="page-overview">Overview</a>
+          <a role="tab" id="tab-schedule" href="#schedule" aria-controls="page-schedule">Schedule Matrix</a>
+        </div>
+
+        <!-- Overview -->
+        <div class="report-tab" id="page-overview" role="tabpanel" aria-labelledby="tab-overview">
+          <div class="cd-top">
+            <article class="pbi-card" aria-labelledby="treemap-title">
+              <h2 id="treemap-title" class="pbi-title">MW In Flight by Region</h2>
+              <div class="chart-wrap" id="treemap-wrap"><svg id="treemap" role="img" aria-labelledby="treemap-title"></svg></div>
+            </article>
+            <article class="pbi-card cd-right">
+              <h2 id="columns-title" class="pbi-title">MW In Flight by Data Center</h2>
+              <div class="chart-wrap" id="columns-wrap"><svg id="columns" role="img" aria-labelledby="columns-title"></svg></div>
+              <h2 id="dc-title" class="pbi-title cd-subtitle">DC Details</h2>
+              <div class="pbi-table-scroll cd-dc-scroll" tabindex="0" aria-labelledby="dc-title">
+                <table class="pbi-table cd-table" id="dc-table"></table>
+              </div>
+            </article>
+          </div>
+          <article class="pbi-card" aria-labelledby="bd-title">
+            <h2 id="bd-title" class="pbi-title">Building Details</h2>
+            <div class="pbi-table-scroll cd-bd-scroll" tabindex="0" aria-labelledby="bd-title">
+              <table class="pbi-table cd-table" id="bd-table"></table>
+            </div>
+          </article>
+        </div>
+
+        <!-- Schedule Matrix -->
+        <div class="report-tab" id="page-schedule" role="tabpanel" aria-labelledby="tab-schedule" hidden>
+          <article class="pbi-card" aria-labelledby="sm-title">
+            <h2 id="sm-title" class="pbi-title">Schedule Matrix</h2>
+            <div class="pbi-table-scroll cd-sm-scroll" tabindex="0" aria-labelledby="sm-title">
+              <table class="pbi-table sm-table" id="sm-table"></table>
+            </div>
+          </article>
+        </div>
+        <div class="ms-tip" id="ms-tip" hidden></div>
+      </section>
+
+      <p class="report-note">Data as of <span id="asof"></span>: milestones on or before it are complete (grey), later dates are forecasts.
+        Generated, fictitious data from the GigaDC reporting project. This page reproduces the Power BI report in plain HTML, CSS and JavaScript.</p>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap foot">
+      <img src="../assets/logos/GigaDC_primary_on-dark.svg" alt="GigaDC" width="40" height="40">
+      <p>GigaDC Builders is a fictitious company created for a portfolio project. No real products, customers or data.</p>
+      <nav class="foot-links" aria-label="Footer"><a href="index.html">Reports</a><a href="../about.html">About</a><a href="../pricing.html">Pricing</a></nav>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+  <script src="../js/reports/capacity-delivery-data.js"></script>
+  <script src="../js/reports/capacity-delivery.js"></script>
+</body>
+</html>

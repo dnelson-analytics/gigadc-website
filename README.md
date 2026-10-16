@@ -27,6 +27,9 @@ python -m http.server 8000
 | `css/reports.css` | Report styling, following the Power BI theme inside the site's frame |
 | `js/reports/supply-and-demand.js` | The Supply and Demand report: slicers, period roll-ups, SVG chart, table |
 | `js/reports/supply-and-demand-data.js` | Generated report data; do not edit |
+| `js/reports/capacity-delivery.js` | The Capacity Delivery report: Overview (treemap, columns, DC and Building Details) and Schedule Matrix tabs |
+| `js/reports/capacity-delivery-data.js` | Generated report data; do not edit |
+| `scripts/build_delivery_data.py` | Builds the Capacity Delivery data, porting the Delivery and Delivery MW queries |
 | `scripts/build_report_data.py` | Builds the report data from the gigadc-reporting CSVs, porting the model's Power Query |
 | `css/styles.css` | All styling; brand colors are CSS variables in `:root` |
 | `js/main.js` | Mobile menu and front-end demo form validation |
@@ -63,6 +66,7 @@ committed. Rebuild it from the reporting repo the same way:
 
 ```bash
 python scripts/build_report_data.py ../gigadc-reporting
+python scripts/build_delivery_data.py ../gigadc-reporting
 ```
 
 It ports the Supply and Demand model's Delivery MW and Supply queries,

@@ -20,7 +20,8 @@ and nothing from any employer's systems.
   Ask before adding any of these.
 - Preview locally: `python -m http.server 8000`, or open `index.html`.
 - Pages: `index.html`, `about.html`, `pricing.html`, and the report pages in
-  `reports/` (`index.html`, `supply-and-demand.html`; ADR 0002). The header and
+  `reports/` (`index.html`, `supply-and-demand.html`, `capacity-delivery.html`;
+  ADR 0002). The header and
   footer are repeated per page, so a change to either goes into every page; the
   report pages link up with `../`.
 - Brand colors are CSS variables in `:root` of `css/styles.css`, matching the
