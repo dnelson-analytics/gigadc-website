@@ -19,12 +19,14 @@ and nothing from any employer's systems.
 - Plain HTML, CSS, JavaScript. No build step, no framework, no package manager.
   Ask before adding any of these.
 - Preview locally: `python -m http.server 8000`, or open `index.html`.
-- Pages: `index.html`, `about.html`, `pricing.html`. The header and footer are
-  repeated per page, so a change to either goes into all three.
+- Pages: `index.html`, `about.html`, `pricing.html`, and the report pages in
+  `reports/` (`index.html`, `supply-and-demand.html`; ADR 0002). The header and
+  footer are repeated per page, so a change to either goes into every page; the
+  report pages link up with `../`.
 - Brand colors are CSS variables in `:root` of `css/styles.css`, matching the
   report theme: blue `#4F8DF0`, green `#25A06F`, orange `#FF7A1A` on navy.
 - Deploy: `.github/workflows/pages.yml` publishes a **named list of files**
-  (`index.html`, `about.html`, `pricing.html`, `assets/`, `css/`, `js/`) on every
+  (`index.html`, `about.html`, `pricing.html`, `assets/`, `css/`, `js/`, `reports/`) on every
   push to `main`. Add any new page or folder to its `cp` line. `scripts/`, `docs/`
   and the README are not published.
 
