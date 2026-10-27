@@ -260,7 +260,7 @@
     const head1 = `<tr>${['Area', 'Region', 'Data Center', 'Building', 'MW'].map((h) =>
       `<th class="rh" rowspan="2" scope="col">${h}</th>`).join('')}${core.map((i) =>
       `<th class="period-head group-start" colspan="4" scope="colgroup">${esc(D.milestones[i].name)}</th>`).join('')}</tr>`;
-    const head2 = `<tr>${core.map(() => ['Plan', 'Actual / Forecast', 'Drift (days)', 'Status'].map((h, i) =>
+    const head2 = `<tr>${core.map(() => ['Plan', 'Actual / Forecast', 'Drift (Days)', 'Status'].map((h, i) =>
       `<th scope="col" class="${i === 0 ? 'group-start ' : ''}${i === 1 || i === 0 ? 'ctr' : i === 3 ? 'ctr' : ''}">${h}</th>`).join('')).join('')}</tr>`;
     let prev = [];
     const body = list.map((b) => {

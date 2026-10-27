@@ -336,7 +336,7 @@
       `<th scope="col"${i === 0 ? ' class="group-start"' : ''}>${tr.name}</th>`).join('')).join('')}</tr>`;
     const body = c.regs.map((reg) => `<tr><td class="region">${reg}</td>${c.ps.map((_, pi) => trends.map((tr, i) =>
       `<td${i === 0 ? ' class="group-start"' : ''}>${fmt(c.byRegion(reg, tr.key, pi), tr.key)}</td>`).join('')).join('')}</tr>`).join('');
-    t.innerHTML = `<caption class="sr-only">Supply and demand by region, MW, by ${state.grain.toLowerCase()}</caption><thead>${head1}${head2}</thead><tbody>${body}</tbody>`;
+    t.innerHTML = `<caption class="sr-only">Supply and Demand by Region (MW), by ${state.grain}</caption><thead>${head1}${head2}</thead><tbody>${body}</tbody>`;
   }
 
   // --- Render ---------------------------------------------------------------------------

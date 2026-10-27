@@ -129,3 +129,8 @@ region and per building) is accepted: it is generated, fictitious data.
 - **2026-10-16:** Building Details shows only the three core milestones
   (Facility Ready, Infrastructure Ready, Building Ready), matching the Power
   BI report; the Schedule Matrix keeps all ten.
+- **2026-10-27 (titles in Title Case):** matching the Power BI reports
+  (gigadc-reporting ADR 0007): Supply and Demand Trend (MW), Supply and
+  Demand by Region (MW), and Time Grain on the Supply and Demand page, with
+  its screen-reader labels; Drift (Days) in Capacity Delivery's Building
+  Details.
